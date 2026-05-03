@@ -43,6 +43,11 @@
 
 </div>
 
+<!-- 🔥 NEW FOOTER TEXT -->
+<div id="footer">
+  Skezl Unblockable Games · Saves Progress (Just Don't Close the Tab) · F11 For Better
+</div>
+
 <div id="gamePage" style="display:none;">
   <div id="topBar">
     <button onclick="goBack()">← Back</button>
@@ -79,7 +84,7 @@ body, html {
   justify-content: center;
   gap: 30px;
   margin-top: 40px;
-  flex-wrap: wrap; /* makes it not break if more games */
+  flex-wrap: wrap;
 }
 
 .game {
@@ -111,6 +116,15 @@ body, html {
   background: white;
   color: black;
 }
+
+/* 🔥 Footer styling */
+#footer {
+  margin-top: 25px;
+  font-size: 16px;
+  color: white;
+}
+
+/* GAME PAGE */
 
 #gamePage {
   position: fixed;
@@ -197,14 +211,10 @@ async function getFile(url) {
       if (data && (Date.now() - data.timestamp) < CACHE_DURATION) {
         resolve(data.content);
       } else {
-        try {
-          const res = await fetch(url);
-          const text = await res.text();
-          await saveToCache(url, text);
-          resolve(text);
-        } catch (e) {
-          reject(e);
-        }
+        const res = await fetch(url);
+        const text = await res.text();
+        await saveToCache(url, text);
+        resolve(text);
       }
     };
 
@@ -216,6 +226,7 @@ function showGame(i) {
   currentGame = i;
   document.getElementById("menu").style.display = "none";
   document.getElementById("title").style.display = "none";
+  document.getElementById("footer").style.display = "none";
   document.getElementById("gamePage").style.display = "block";
 }
 
@@ -223,6 +234,7 @@ function goBack() {
   document.getElementById("gamePage").style.display = "none";
   document.getElementById("menu").style.display = "flex";
   document.getElementById("title").style.display = "block";
+  document.getElementById("footer").style.display = "block";
   document.getElementById("fr").src = "";
 }
 
